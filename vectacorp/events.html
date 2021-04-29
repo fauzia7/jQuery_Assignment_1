@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Events</title>
+  <link href="styles/normalize.css" type="text/css" rel="stylesheet">
+ 
+  <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <script src="js/jquery-3.6.0.min.js"></script>
+<script>
+ window.addEventListener('load', () => {
+     console.log("DOM is ready");
+
+     $("button").css("border", "1px solid black");
+	 $("button").css("padding", "3px 20px").css("margin", "20px 10px");
+
+    
+
+    $("#one").click(function () {
+
+        alert("Button has been clicked");
+
+    });
+
+    $("#two").bind("click",function(event) {
+
+     alert("Button has been clicked");
+
+     });
+   
+    $("#three").on("click", function() {
+        alert("Button has been clicked");
+
+     });
+
+
+     //
+
+     $(function() {
+         $("body").on({
+             click: function() {
+                 window.alert("Button has been clicked using on()");
+
+             }
+
+         }, "#btn_div button");
+
+     });
+
+     $("#divContainer").css("background-color", "yellow").css("height","400px").css("width","400px");
+
+//   In one alert   
+
+     $(function() {
+         $("body").on("click mouseenter mouseleave ","#divContainer", function () {
+
+
+            window.alert("div was either clicked on, or the mouse entered it, or the mouse left it ");
+
+         });
+    
+
+
+
+     });
+
+// In seperate alert
+ 
+
+  $("#span").css("height","600px").css("width","800px").css("background-color", "blue");
+
+   $("#span").on({
+
+       click: function() {
+           window.alert("You clicked on the span");
+       },
+       mouseenter: function() {
+           window.alert("Hovered over the span");
+       },
+       mouseleave: function() {
+           window.alert("The mouse leave the span");
+       },
+   });
+
+   $("a").click(function(event) {
+       event.preventDefault();
+       $("a").css("color","red");
+       window.alert(event.target.nodeName + ' triggered the event');
+
+
+
+
+
+   });
+
+// Browser resize
+$(window).resize(function () {
+    $("#resize").text($(window).width());
+    $("#resize").text($(window).height());
+
+   
+
+});
+
+// Focus
+$("#focusId").focusin(function() {
+    $( this ).css("background-color", "lightgrey")
+});
+$("#focusId").focusout(function() {
+    $( this ).css("background-color", "white")
+});
+
+
+
+// Form
+
+    $(function() {
+
+        $('#name').focus();
+        $('#form').submit(function(event) {
+        
+        event.preventDefault();
+            let name = $("#name").val();
+            let email = $("#email").val();
+
+            if(name == "") {
+
+                $("#name" ).css("border", "2px solid red");
+                $("#name").next().text("This field is required");
+                
+
+
+            } else if(name !== "") {
+                $("#name" ).css("border", "2px solid green");
+                
+
+            } else {
+                $("#name").val(name);
+            };
+            
+            if(name == "") {
+
+                $("#email" ).css("border", "2px solid red");
+                $("#email").next().text("This field is required");
+
+
+
+                } else if(email !== "") {
+                $("#email" ).css("border", "2px solid green");
+
+                } else {
+                $("#email").val(email);
+                }
+
+        
+
+
+
+        });
+
+    });
+
+
+
+
+
+    });
+
+</script>
+</head>
+<body>
+    <button id="one">Button - 1</button> <br>
+    <button id="two">Button - 2</button> <br>
+    <button id="three">Button - 3</button> <br>
+    <div id="btn_div">
+       <button id="four">Button - 4</button> <br>
+       <button id="five">Button - 5</button> <br>
+
+    </div>
+
+    <div id="divContainer"></div>
+    <span><div id="span"  style="height: 400px;width: 400px;background-color: blue;">Span</div></span>
+
+    <a href="www.modulemedia.com">LINK</a> 
+
+   <div id="resize"></div> 
+
+<br>
+    <input id="focusId" type="text" style="margin: 20px 20px;">
+
+    <br>
+
+    <form id="form">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" >
+        <span>*</span> <br>
+        <label for="Email">Email:</label><br>
+        <input type="email" id="email" name="Email" >
+        <span>*</span> <br> <br>
+        <input type="submit" id="submit" value="Submit">
+        
+      </form> 
+
+  
+
+</body>
+	 
+
+
+</html>
